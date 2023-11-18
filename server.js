@@ -7,7 +7,7 @@ const sensorRoutes = require("./routes/SensorRoutes");
 const app = express();
 connectDB();
 
-const PORT = process.env.PORT || 80;
+const PORT = process.env.PORT || 8080;
 
 //application json response
 app.use(express.json());
