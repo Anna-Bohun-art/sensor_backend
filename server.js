@@ -4,7 +4,7 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const connectDB = require("./dbinit");
 const sensorRoutes = require("./routes/SensorRoutes");
-const userRoutes = require("./routes/UserRoutes")
+//const userRoutes = require("./routes/UserRoutes")
 const app = express();
 connectDB();
 
@@ -17,7 +17,7 @@ const jwt = require("jsonwebtoken");
 app.use(cookieParser());
 app.use(cors());
 app.use("/sensor", sensorRoutes);
-app.use("user", userRoutes);
+//app.use("user", userRoutes);
 app.use(express.urlencoded({extended: true}));
 
 app.listen(PORT, ()=> {
