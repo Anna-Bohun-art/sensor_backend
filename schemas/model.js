@@ -1,6 +1,27 @@
-const mongoose= require("mongoose");
+const mongoose = require("mongoose");
 const validator = require("validator");
 const bcrypt = require("bcrypt");
+const { Schema } = mongoose;
+
+const sensorSchema = new Schema({
+    sensor_id:{
+        type:String,
+        required: true
+        
+    },
+    temperature:{
+        type:Number,
+        required: true
+    },
+    humidity:{
+        type:Number,
+        required: true
+    },
+    location:{
+        type: String,
+        required: true
+    },
+}, {timestamps : true})
 
 const userSchema = new mongoose.Schema({
     username: {
@@ -38,11 +59,11 @@ userSchema.statics.signup = async function(username, email, password){
     //salt the password
     const salt = await bcrypt.genSalt(10);
     //hash the password
-    const hash = await bcrypt.hash(password.salt);
+    const hash = await bcrypt.hash(password, salt);
     const user = await this.create({ username, email, password: hash });
     return user;
 }
-userSchema.statistics.login = async function(email, password){
+userSchema.statics.login = async function(email, password){
     if(!email || !password){
         throw Error("All fields must be filled");
     }
@@ -56,4 +77,7 @@ userSchema.statistics.login = async function(email, password){
     }
     return user;
 }
-module.exports = mongoose.model("User", userSchema)
+const User = mongoose.model("user", userSchema);
+const Sensor = mongoose.model("sensor", sensorSchema);
+
+module.exports = {User, Sensor}

@@ -1,4 +1,4 @@
-const Sensor = require("../schemas/Sensor");
+const { Sensor } = require("../schemas/model");
 
 const getAllSensors = async (req, res) => {
     try {
