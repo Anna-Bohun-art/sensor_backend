@@ -22,7 +22,7 @@ const signupUser = async (req, res) => {
         const token = createToken(user._id);
         res.status(201).json({ email, token })
     } catch(error){
-        res.status(500).json({ error: error.message })
+        res.status(400).json({ error: error.message })
     }
 }
 module.exports = {loginUser, signupUser}
