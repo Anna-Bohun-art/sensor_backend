@@ -1,8 +1,9 @@
 const { User } = require("../schemas/model");
 const jwt = require("jsonwebtoken");
+require("dotenv").config();
 const createToken = (_id)=> {
-    return jwt.sign({_id}.process.env.SECRET, {expiresIn: "id"});
-}
+    return jwt.sign({_id}, process.env.SECRET, {expiresIn: "1d"});
+};
 //login the user
 const loginUser = async (req, res) => {
     const {email, password } = req.body;
