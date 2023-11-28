@@ -27,10 +27,3 @@ app.listen(PORT, ()=> {
 app.get("/", (req, res)=> {
     res.send("Welcome to sensor API");
 })
-/*a sensor will have:
-
-id: uuid
-temperature: number
-humidity: number
-location: string
-created_at: date*/

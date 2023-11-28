@@ -6,8 +6,7 @@ const { Schema } = mongoose;
 const sensorSchema = new Schema({
     sensor_id:{
         type:String,
-        required: true
-        
+        required: true  
     },
     temperature:{
         type:Number,
@@ -26,17 +25,21 @@ const sensorSchema = new Schema({
 const userSchema = new mongoose.Schema({
     username: {
         type: String,
-        required: true,
-        unique: true
+        minLength: [2, "Your username should be at least 2 characters long"],
+        minLength: [20, "Your username should not be more than 20 characters long"],
+        required: [true,"A name is required!"]
     },
     email: {
         type: String,
-        required: true,
+        minLength: [6,"Your email adress should be at least 6 characters long"],
+        maxLength: [20, "Your email adress should not be more than 20 characters long"],
+        required: [ true,"An email is required"],
         unique: true
     },
     password: {
         type: String,
-        required: true
+        required: [ true, "A password is required"],
+        minLength: [8, "Your password should be at least 8 characters long"]
     },
 
 });
@@ -48,7 +51,7 @@ userSchema.statics.signup = async function(username, email, password){
         throw Error("Email already in use");
     }
     if(!username){
-        throw Error("Username can not be blank");
+        
     }
     if(!email){
         throw Error("Email can not be blank");
