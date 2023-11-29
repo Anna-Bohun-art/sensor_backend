@@ -20,10 +20,13 @@ app.use(cors());
 app.use("/sensor", sensorRoutes);
 app.use("/user", userRoutes);
 app.use(express.urlencoded({extended: true}));
-
+app.get("/user/signup", function(req, res, next){
+    res.json({msg: "This is CORS"})
+})
+app.get("/", (req, res)=> {
+    res.json("Welcome to sensor API");
+})
 app.listen(PORT, ()=> {
     console.log(`Listening on port ${PORT}`);
 })
-app.get("/", (req, res)=> {
-    res.send("Welcome to sensor API");
-})
+
