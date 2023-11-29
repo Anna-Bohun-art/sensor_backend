@@ -25,6 +25,7 @@ const signupUser = async (req, res) => {
     if(!error) {
         const user = await User.signup(username, email, password);
         const token = createToken(user._id);
+        res.header("Access-Control-Allow-Methods", [POST]);
         res.status(201).json({ email, token })
     } else {
         return res.status(400).json(error);

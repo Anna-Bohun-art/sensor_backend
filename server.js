@@ -21,8 +21,10 @@ app.use("/sensor", sensorRoutes);
 app.use("/user", userRoutes);
 app.use(express.urlencoded({extended: true}));
 app.get("/user/signup", function(req, res, next){
+    header("Access-Control-Allow-Methods: POST");
     res.json({msg: "This is CORS"})
 })
+
 app.get("/", (req, res)=> {
     res.json("Welcome to sensor API");
 })
