@@ -21,7 +21,7 @@ app.use("/sensor", sensorRoutes);
 app.use("/user", userRoutes);
 app.use(express.urlencoded({extended: true}));
 app.get("/user/signup", function(req, res, next){
-    header("Access-Control-Allow-Methods: POST");
+    header("Access-Control-Allow-Methods", "*");
     res.json({msg: "This is CORS"})
 })
 
