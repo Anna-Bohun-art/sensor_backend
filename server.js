@@ -20,9 +20,11 @@ app.use(cors());
 app.use("/sensor", sensorRoutes);
 app.use("/user", userRoutes);
 app.use(express.urlencoded({extended: true}));
-app.get("/user/signup", function(req, res, next){
-    header("Access-Control-Allow-Methods", "*");
-    res.json({msg: "This is CORS"})
+app.get((req, res, next){
+    res.setHeader("Access-Control-Allow-Methods", "*");
+    res.setHeader("Access-Control-Allow-Methods", "POST, GET");
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+    next();
 })
 
 app.get("/", (req, res)=> {
