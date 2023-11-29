@@ -21,14 +21,17 @@ app.use("/sensor", sensorRoutes);
 app.use("/user", userRoutes);
 app.use(express.urlencoded({extended: true}));
 app.use((req, res, next)=>{
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    res.setHeader("Access-Control-Allow-Methods", "POST, GET");
-    res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-    next();
+    const allowedOrigins = ['http://localhost:8080'/*, 'http://gamebrag.onrender.com', 'https://gamebrag.onrender.com'*/];
+      const origin = req.headers.origin;
+      if (allowedOrigins.includes(origin)) {
+           res.setHeader('Access-Control-Allow-Origin', origin);
+      }
+      res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+      res.header("Access-Control-Allow-credentials", true);
+      res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, UPDATE");
+      next();
 })
-/*app.use(cors({
-    origin: "http://localhost:8080"
-}));*/
+
 app.get("/", (req, res)=> {
     res.json("Welcome to sensor API");
 })
