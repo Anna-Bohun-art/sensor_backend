@@ -5,11 +5,11 @@ const { Schema } = mongoose;
 
 const sensorSchema = new Schema({
     sensor_id:{
-        type:String,
+        type: String,
         required: true  
     },
     temperature:{
-        type:Number,
+        type: Number,
         required: true
     },
     humidity:{
@@ -40,6 +40,9 @@ const userSchema = new mongoose.Schema({
         required: [ true, "A password is required"],
         minLength: [8, "Your password should be at least 8 characters long"]
     },
+    token: {
+        type: String
+    }
 
 });
 //create a static method
@@ -85,7 +88,23 @@ userSchema.statics.login = async function(email, password){
     }
     return user;
 }
-const User = mongoose.model("user", userSchema);
+userSchema.statics.login = async function (email, password) {
+    if (!email || !password) {
+      throw Error("All fields must be filled");
+    }
+    // check if the uiser exists in DB
+    const user = await this.findOne({ email });
+    if (!user) {
+      throw Error("User does not exist");
+    }
+    // check if the password matches
+    const match = await bcrypt.compare(password, user.password);
+    if (!match) {
+      throw Error("Incorrect password");
+    }
+    return user;
+  };
+const User = mongoose.model("User", userSchema);
 const Sensor = mongoose.model("sensor", sensorSchema);
 
-module.exports = {User, Sensor}
+module.exports = { User, Sensor }

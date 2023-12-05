@@ -2,10 +2,12 @@ const express = require("express");
 require("dotenv").config();
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
-const {Sensor, User } = require("./schemas/model.js");
+const { Sensor, User } = require("./schemas/model.js");
 const connectDB = require("./dbinit");
 const sensorRoutes = require("./routes/SensorRoutes");
-const userRoutes = require("./routes/UserRoutes")
+const userRoutes = require("./routes/UserRoutes");
+//const { requireAuth, checkUser } = require("./middleware/requireAuth.js");
+const { username } = require("./controllers/userControllers.js");
 const app = express();
 connectDB();
 
@@ -31,7 +33,8 @@ app.use((req, res, next)=>{
       res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, UPDATE");
       next();
 })
-
+//app.get('*', checkUser);
+//app.get('/signup', requireAuth, (req, res) => res.render('user'));
 app.get("/", (req, res)=> {
     res.json("Welcome to sensor API");
 })
