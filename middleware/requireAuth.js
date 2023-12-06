@@ -1,3 +1,4 @@
+const { Router } = require("express");
 const { User } = require("../schemas/model");
 const jwt = require("jsonwebtoken");
 const requireAuth = async(req, res, next) => {
@@ -15,4 +16,5 @@ const requireAuth = async(req, res, next) => {
     res.status(401).json({error: "Not Authorized"});
   }
 };
+
 module.exports = requireAuth;

@@ -1,5 +1,6 @@
 const { User } = require("../schemas/model");
 const jwt = require("jsonwebtoken");
+const { default: mongoose } = require("mongoose");
 require("dotenv").config();
 
 const createToken = (_id, username)=> {
@@ -14,7 +15,7 @@ const signupUser = async (req, res) => {
         const user = await User.signup(username, email, password);
         const token = createToken(user._id, username);
         res.status(200).json({ username, email, password });
-    }catch(error){
+    } catch(error){
         res.status(400).json({error: error.message});
     }
 }
@@ -32,5 +33,9 @@ const loginUser = async(req, res)=> {
         res.status(400).json({ error: error.message})
     }
 };
+const getCurrentUser = async(token) => {
+    const currentUser = jwt.decode(token, process.env.SECRET);
+    return currentUser;
+}
 
-module.exports = { loginUser, signupUser }
+module.exports = { loginUser, signupUser, getCurrentUser }
