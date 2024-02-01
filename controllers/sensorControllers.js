@@ -2,7 +2,8 @@ const { Sensor } = require("../schemas/model");
 
 const getAllSensors = async (req, res) => {
     try {
-        const sensors = await Sensor.find();
+        const sensors = await Sensor.find().limit(30);
+        console.log(sensors);
         res.header("Access-Control-Allow-Methods", "*");
         res.status(200).json({
           success: true,
